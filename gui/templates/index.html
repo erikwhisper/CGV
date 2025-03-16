@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+   <!--end oder de?-->
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="../styles/style.css" />
+      <title>Causal Graph Visualiser</title>
+   </head>
+   <body>
+      <!----------------------------------------------------------------->
+      <!-- NAVIGATION-HEADER -->
+      <!----------------------------------------------------------------->
+      <div id="navigation-header">
+         <h1>Causal Graph Visualiser</h1>
+         <label><input type="checkbox" id="gridClippingToggle" unchecked />Grid</label>
+         <button id="pagVisualizeJsonWithD3">Draw</button>
+         <button id="right-slidemenu-toggle">Menu</button> <!-- aktuell nur platzhalter -->
+      </div>
+      <!----------------------------------------------------------------->
+
+      <!----------------------------------------------------------------->
+      <!-- MINOR-SLIDEMENU -->
+      <!----------------------------------------------------------------->
+      <div id="right-slidemenu-minor">
+         <div id="right-slidemenu-minor-buttons">
+            <button id="right-slidemenu-minor-button-fileInput">Open</button>
+            <button id="right-slidemenu-minor-button-fileOutput">Save</button>
+            <!--<button id="right-slidemenu-minor-button-fileExport">Exportieren</button>-->
+         </div>
+      </div>
+      <!----------------------------------------------------------------->
+
+      <!----------------------------------------------------------------->
+      <!-- MAJOR-SLIDEMENU-OPEN -->
+      <!----------------------------------------------------------------->
+      <div class="right-slidemenu-major" id="menu-content-1">
+         
+         <!--right-slidemenu-major-content-fileInput-->
+         <div class="right-slidemenu-major-content-headline">
+            Open
+         </div>
+         <!-- PAG Matrix Input Section -->
+
+
+         <section id="matrix-input-section">
+
+            <div class="toggle-container">
+               <span>PAG</span>
+               <label class="switch">
+                 <input type="checkbox" id="matrixTypeToggle">
+                 <span class="slider round"></span>
+               </label>
+               <span>ADMG</span>
+             </div>
+
+            <h2 id="matrixH2">Matrix:</h2>
+
+            <div class="custom-file-upload">
+               <label for="matrixFileInput" class="file-upload-button">Load Matrix from File</label>
+               <input type="file" id="matrixFileInput" accept=".csv, .txt" />
+           </div>
+
+
+            <button class="toggle-textarea" data-target="matrixDisplay">Show/Hide Matrix Textarea</button>
+            <button class= "update-button" id="updateFromMatrixButton">Load Matrix from Textarea</button>
+
+            <textarea
+               id="matrixDisplay"
+               placeholder="Matrix wird hier angezeigt..."></textarea>
+
+           <!-- <button id="matrixFileInputButton">Load Matrix from File</button> -->
+         </section>
+
+
+         <!-- PAG JSON Input Section -->
+         <section id="json-input-section">
+            <div class="file-input-container">
+
+               <h2 id="jsonH2">JSON:</h2>
+
+               <div class="custom-file-upload">
+                  <label for="jsonFileInput" class="file-upload-button">Load JSON from File</label>
+                  <input type="file" id="jsonFileInput" accept=".json, .txt" />
+              </div>
+               
+            </div>
+            <button class="toggle-textarea" data-target="jsonDisplay">Show/Hide JSON Textarea</button>
+            <button class= "update-button" id="updateFromJsonButton">Load JSON from Textarea</button>
+            <textarea
+               id="jsonDisplay"
+               placeholder="JSON-Daten werden hier angezeigt...">{"nodes": [],"links": []}</textarea>
+            <!-- <button id="jsonFileInputButton">Load JSON from File</button> -->
+         </section>
+
+
+         <!-- PAG DOT Input Section -->
+         <section id="dot-input-section">
+            <div class="file-input-container">
+
+               <h2 id="dotH2" >DOT:</h2>
+
+               <div class="custom-file-upload">
+                  <label for="dotFileInput" class="file-upload-button">Load DOT from File</label>
+                  <input type="file" id="dotFileInput" accept=".dot , .gv, .txt" />
+              </div>
+
+            </div>
+            <button class="toggle-textarea" data-target="dotDisplay">Show/Hide DOT Textarea</button>
+            <button class= "update-button" id="updateFromDotButton">Load DOT from Textarea</button>
+            <textarea
+               id="dotDisplay"
+               placeholder="DOT-Syntax wird hier angezeigt..."></textarea>
+            <!-- <button id="dotFileInputButton">Load DOT from File</button> -->
+         </section>
+
+
+      </div>
+      <!----------------------------------------------------------------->
+
+
+      <!----------------------------------------------------------------->
+      <!-- MAJOR-SLIDEMENU-SAVE -->
+      <!----------------------------------------------------------------->
+      <div class="right-slidemenu-major" id="menu-content-2">
+         <!--right-slidemenu-major-content-fileOutput-->
+         <div class="right-slidemenu-major-content-headline">Save</div>
+         <section id="pag-conversion-button-section">
+            <button id="downloadMatrixButton">Download Matrix</button>
+            <button id="downloadJsonButton">Download JSON</button>
+            <button id="downloadDotButton">Download DOT</button>
+         </section>
+         <div class="right-slidemenu-major-content-headline">Export</div>
+         <section id="pag-conversion-button-section">
+         <button id="downloadPngButton">Download PNG</button>
+         <button id="downloadPdfButton">Download PDF</button>
+      </section>
+      </div>
+      <!----------------------------------------------------------------->
+
+      <!-- Graph Container -->
+      <div id="graph-container"></div>
+      <!-- Label & Link Contextmenus Section -->
+      <div id="context-menus">
+         <!--Label Section-->
+         <div id="label-context-menu" class="context-menus">
+            <button id="menu-center">Center</button>
+            <button id="menu-above">Above</button>
+            <button id="menu-below">Below</button>
+            <button id="menu-left">Left</button>
+            <button id="menu-right">Right</button>
+         </div>
+         <!--Link Section-->
+         <!--aufpassen das mir die änderung hier mein contextmenu nicht crasht-->
+         <div id="link-context-menu" class="context-menus">
+          <div id="arrow-selection-container">
+              <!-- Arrowhead Section -->
+              <div class="arrow-group">
+                  <p><strong>Arrowhead:</strong></p>
+                  <button id="arrowhead-normal">Normal</button>
+                  <button id="arrowhead-odot">Circle</button>
+                  <button id="arrowhead-tail">Tail</button>
+              </div>
+              <!-- Arrowtail Section -->
+              <div class="arrow-group">
+                  <p><strong>Arrowtail:</strong></p>
+                  <button id="arrowtail-normal">Normal</button>
+                  <button id="arrowtail-odot">Circle</button>
+                  <button id="arrowtail-tail">Tail</button>
+              </div>
+          </div>
+          <p><strong>Other:</strong></p>
+          <button id="straighten-link">Straighten</button>
+          <button id="toggle-dashed-link">Toggle Dashed</button>
+          <button id="delete-link">Delete Edge</button>
+      
+          <p><strong>Change Color:</strong></p>
+          <div id="link-color-palette"></div>
+      </div>
+      
+         <!--Node Section-->
+         <div id="node-context-menu" class="context-menus">
+            <button id="delete-node">Delete Node</button>
+            <p><strong>Change Color:</strong></p>
+            <div id="node-color-palette"></div>
+            <!--rename into node-color-pallate-->
+         </div>
+      </div>
+      <!--alle zu beschreibenden und zu erklärenden imports und hilfsfunktionen-->
+      <script src = https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js></script>
+      <script src= https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js></script>
+      <script src= https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.2/uuid.min.js></script>
+      <!--constants-->
+      <script src="../js/constants/allowedColors.js"></script>
+      <!--gui-->
+      <script src="../js/webNavigator/webnavigator.js"></script>
+      <!------------->    
+      
+
+      <!------------->
+
+      <!--parser-->
+
+      <!--parserUtils--> 
+      <script src="../js/parser/parserUtils/utils.js"></script>   
+      <script src="../js/parser/parserUtils/callConverterFromMatrixInput.js"></script>
+      <script src="../js/parser/parserUtils/callConverterFromJsonInput.js"></script>
+      <script src="../js/parser/parserUtils/callConverterFromDotInput.js"></script>
+      
+      <!--ausgabeConverter-->
+      <script src="../js/parser/converter/ausgabeConverter/jsonToDotConversion.js"></script>
+      <script src="../js/parser/converter/ausgabeConverter/jsonToPagMatrixConversion.js"></script>
+      <script src="../js/parser/converter/ausgabeConverter/jsonToAdmgMatrixConversion.js"></script>
+      
+      <!--eingabeConverter-->
+      <script src="../js/parser/converter/eingabeConverter/dotToJsonConversion.js"></script>
+      <script src="../js/parser/converter/eingabeConverter/admgMatrixToJsonConversion.js"></script>
+      <script src="../js/parser/converter/eingabeConverter/pagMatrixToJsonConversion.js"></script>
+
+      <!--stringInput-->
+      <script src="../js/parser/reader/stringInput/handleMatrixStringInput.js"></script>
+      <script src="../js/parser/reader/stringInput/handleJsonStringInput.js"></script>
+      <script src="../js/parser/reader/stringInput/handleDotStringInput.js"></script>
+
+      <!--fileReader-->
+      <script src="../js/parser/reader/fileReader/matrixFileReader.js"></script>
+      <script src="../js/parser/reader/fileReader/jsonFileReader.js"></script>
+      <script src="../js/parser/reader/fileReader/dotFileReader.js"></script>
+
+      <!------------->
+
+      <!--visualizer-->
+      
+      <!--initialize-->
+      <script src="../js/visualizer/initialize/initializeSvgCanvas.js"></script>
+      <script src="../js/visualizer/initialize/initializeNodeCoordinates.js"></script>
+      <!--draw UNSICHER OB PASSENDER UNTERORDNER-->
+      <script src="../js/visualizer/draw/setupArrowMarker.js"></script>
+      <!--draw-->
+      <script src="../js/visualizer/draw/drawLinks.js"></script>
+      <script src="../js/visualizer/draw/drawNodes.js"></script>
+      <script src="../js/visualizer/draw/drawLabels.js"></script>
+      <script src="../js/visualizer/draw/drawNewLink.js"></script>
+      <script src="../js/visualizer/draw/drawNewNode.js"></script>
+      <script src="../js/visualizer/draw/drawNewLabel.js"></script>
+      <!--drag-->
+      <script src="../js/visualizer/drag/linkInteractiveDrag.js"></script>
+      <script src="../js/visualizer/drag/nodeInteractiveDrag.js"></script>
+      <!--contextmenu-->
+      <!--contextmenu-utils-->
+      <script src="../js/visualizer/contextmenu/util.js/setupContextMenu.js"></script>
+      <script src="../js/visualizer/contextmenu/util.js/closeContextMenu.js"></script>
+      <!--contextmenu-link-->
+      <script src="../js/visualizer/contextmenu/linkContextMenu/linkContextMenu.js"></script>
+      <!--contextmenu-node-->
+      <script src="../js/visualizer/contextmenu/nodeContextMenu/nodeContextMenu.js"></script>
+      <!--contextmenu-label-->
+      <script src="../js/visualizer/contextmenu/labelContextMenu/labelContextMenu.js"></script>
+      <!--add-->
+      <script src="../js/visualizer/add/addNewLink.js"></script>
+      <script src="../js/visualizer/add/addNewNode.js"></script>
+      <!------------->
+      <!--grid-->
+      <script src="../js/grid/grid.js"></script>
+      <!--visu-->
+      <script src="../js/visualizer/visualizer.js"></script>
+
+      <!--export-->
+
+      <!--Ausgabe als Datei in textueller Darstellung-->
+
+      <script src="../js/parser/writer/ausgabeEventListener.js"></script>
+      <script src="../js/parser/writer/handleOutput.js"></script>
+      <script src="../js/parser/writer/fileWriter.js"></script>
+
+      <!--Ausgabe als PNG oder PDF in visueller Darstellung-->
+
+      <script src="../js/export/exportAsPng.js"></script>
+      <script src="../js/export/exportAsPdf.js"></script>
+   </body>
+</html>

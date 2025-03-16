@@ -1,0 +1,455 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-y: hidden; /*verbietet scrolling die beiden lines*/
+  overflow-x: hidden;
+  font-family: "Arial", sans-serif;
+}
+
+/*----- START: Header -----*/
+#navigation-header {
+  height: 10%;
+  width: 100%;
+  background-color: #8d90cc;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+}
+
+#navigation-header button {
+  font-size: large;
+  text-align: center;
+  font-weight: bold;
+  width: 10%;
+  height: 100%;
+  background-color: #9497d3;
+  color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 10px 15px;
+}
+
+#navigation-header button:hover {
+  background-color: #686cc4;
+}
+/*----- ENDE: Header -----*/
+
+/*----------------------------------*/
+
+/*----- START: Side Menu Minor -----*/
+#right-slidemenu-minor {
+  position: fixed;
+  top: 10%;
+  right: -10%;
+  width: 10%;
+  height: 100%;
+  background-color: #8083c7;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  transition: right 0.4s ease;
+  z-index: 1000;
+}
+
+#right-slidemenu-minor.active {
+  right: 0;
+}
+
+#right-slidemenu-minor-buttons {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+#right-slidemenu-minor-buttons button {
+  font-size: large;
+  text-align: left;
+  font-weight: bold;
+  width: 100%;
+  height: 60px;
+  background-color: #9497d3;
+  color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 10px 15px;
+}
+
+#right-slidemenu-minor-buttons button:hover {
+  background-color: #686cc4;
+}
+
+/*----- ENDE: Side Menu Minor -----*/
+
+/*----------------------------------*/
+
+/*----- START: Side Menu Major -----*/
+/*Das kann man so gottlos refactorn*/
+
+.right-slidemenu-major {
+  position: fixed;
+  top: 10%;
+  right: -40%;
+  width: 30%;
+  height: 90%;
+  background-color: #9497d3;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  transition: right 0.4s ease;
+  z-index: 999;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  padding: 1%;
+}
+
+.right-slidemenu-major.active {
+  right: 10%;
+}
+
+.right-slidemenu-major-content-headline {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: black;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-align: left;
+}
+
+.right-slidemenu-major section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.matrix-input-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.json-input-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dot-input-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.right-slidemenu-major textarea {
+  width: 90%;
+  max-width: 90%;
+  text-align: left;
+  height: 50%;
+  margin-right: 10%;
+  resize: vertical;
+  padding: 10px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f8f7f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  resize: none;
+  display: none;
+}
+
+.right-slidemenu-major textarea.active {
+  display: block;
+  height: 150px;
+}
+
+.right-slidemenu-major button {
+  width: 100%;
+  height: 50px;
+  background-color: #8083c7;
+  color: black;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  padding-left: 2%;
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+.right-slidemenu-major button:hover {
+  background-color: #686cc4;
+}
+
+#matrixFileInput {
+  display: none;
+}
+
+#jsonFileInput {
+  display: none;
+}
+
+#dotFileInput {
+  display: none;
+}
+
+#matrix-input-section,
+#json-input-section,
+#dot-input-section {
+  padding: 0;
+  margin: 0;
+}
+
+#matrixH2 {
+  font-size: 16px;
+  margin-top: 0px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+#jsonH2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+#dotH2 {
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+.file-upload-button {
+  width: 98%;
+  height: 50px;
+  background-color: #8083c7;
+  color: black;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  padding-left: 2%;
+  transition: background-color 0.3s ease;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.file-upload-button:hover {
+  background-color: #686cc4;
+}
+
+/*----- ENDE: Side Menu Major -----*/
+
+/*----------------------------------*/
+
+/*----- START: Context Menus -----*/
+
+/*contextmenu an die rechte seite packen*/
+.context-menus {
+  display: none;
+  position: fixed;
+  width: 15%;
+  height: 100vh;
+  background: #9497d3;
+  border: 1px solid black;
+  padding: 10px;
+  z-index: 1000;
+}
+
+/*die colorpallets mit #node-color-pallate, #link-color-pallate zusammenpacken*/
+#node-color-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 15px);
+  gap: 0;
+  max-height: 100px;
+  overflow-x: scroll;
+  padding: 1px;
+  margin-top: 10%;
+  background: #9497d3;
+  border: 0;
+}
+
+#node-color-palette .color-swatch {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#node-color-palette .color-swatch:hover {
+  box-shadow: inset 0 0 0 1px black;
+}
+
+#link-color-palette {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 15px);
+  gap: 0;
+  max-height: 100px;
+  overflow-x: scroll;
+  padding: 1px;
+  margin-top: 10%;
+  background: #9497d3;
+  border: 0;
+}
+
+#link-color-palette .color-swatch {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#link-color-palette .color-swatch:hover {
+  box-shadow: inset 0 0 0 1px black;
+}
+
+.context-menus button {
+  font-size: large;
+  text-align: center;
+  font-weight: bold;
+  width: 100%;
+  height: 40px;
+  background-color: #8083c7;
+  color: black;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 10px 15px;
+}
+
+.context-menus button:hover {
+  background-color: #686cc4;
+}
+
+#arrow-selection-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+}
+
+.arrow-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+}
+
+.arrow-group p {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.arrow-group button {
+  margin: 2px 0;
+  padding: 5px 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 0;
+  background-color: #8083c7;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.2s ease;
+}
+
+.arrow-group button:hover {
+  background-color: #686cc4;
+}
+
+/*----- ENDE: Contextmenus -----*/
+
+/*----------------------------------*/
+
+/*----- START: Graph Container -----*/
+
+#graph-container {
+  width: 100%;
+  height: calc(
+    100vh - 60px
+  ); /*das muss 100% einf oder? -10% heder, wie kann man das besser machen*/
+  background-color: white;
+  margin-top: 60px;
+  box-sizing: border-box;
+}
+
+/*----- ENDE: Graph Container -----*/
+
+/*Toogle switch for pag/admg*/
+.switch {
+  position: relative;
+  width: 34px;
+  height: 20px;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: left;
+  justify-content: left;
+  gap: 8px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 20px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196f3;
+}
+
+input:checked + .slider:before {
+  transform: translateX(14px);
+}
