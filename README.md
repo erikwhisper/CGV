@@ -17,7 +17,7 @@ This will start a local server and automatically open the correct HTML template 
   - Press **"Draw"** afterwards to visualize it.
 - Or create graphs manually:
   - Press **"Draw"** to enter drawing mode.
-  - **Add nodes**: Shift + Right-click on the canvas.
+  - **Add nodes**: Shift + Left-click on the canvas.
   - **Add edges**: Left-click on two nodes sequentially.
 
 - A better explanation will soon follow (hopefully).
